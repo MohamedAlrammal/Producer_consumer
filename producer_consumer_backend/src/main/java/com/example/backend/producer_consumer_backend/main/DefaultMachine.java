@@ -35,30 +35,34 @@ public class DefaultMachine implements MachineInterface, Runnable{
     public synchronized void update(Queue q) {
         readyQueues.add(q);
         notify();
+        System.out.println("notifying machine " + id);
     }
 
     public synchronized void run() {
-        while (!readyQueues.isEmpty()) {
-            Queue q = readyQueues.get(0);
-            synchronized (q){
-                if (q.isEmpty()) {
-                    readyQueues.remove(q);
-                } else {
-                    consume(q);
-                    try {
-                        System.out.println("machine " + id + " is processing product " + product.id);
-                        Thread.sleep((long) (Math.random() * 10));
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+        while(true){
+            while (!readyQueues.isEmpty()) {
+                Queue q = readyQueues.get(0);
+                synchronized (q) {
+                    if (q.isEmpty()) {
+                        readyQueues.remove(q);
+                    } else {
+                        consume(q);
+                        try {
+                            System.out.println("machine " + id + " is processing product " + product.id);
+                            Thread.sleep((long) (Math.random() * 10));
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        produce();
                     }
-                    produce();
                 }
             }
-        }
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            try {
+                System.out.println("waiting machine " + id);
+                wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

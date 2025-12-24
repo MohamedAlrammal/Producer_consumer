@@ -17,7 +17,7 @@ public class Main {
     private static Dto dto;
     private static WebSocketStompClient client = new WebSocketStompClient(new StandardWebSocketClient());
     private static StompSession session;
-    public static void main(String [] args){
+    public static void main(String [] args) throws InterruptedException {
         Queue prod = new Queue(null);
         List<Queue> qList = new ArrayList<>();
         qList.add(prod);
@@ -35,14 +35,15 @@ public class Main {
         Thread t1 = new Thread(m0);
         Thread t2 = new Thread(m1);
 
-        q.enqueue(new Product(1));
-        q.enqueue(new Product(2));
 
-        q2.enqueue(new Product(3));
-
-        q2.enqueue(new Product(4));
         t1.start();
         t2.start();
+        int n = 10;
+        while(n != 0){
+           // Thread.sleep((int)(Math.random() * 2000));
+            q.enqueue(new Product(n));
+            n--;
+        }
     }
     public static void start(List<DefaultMachine> machines, List<Queue> queues, int numberOfItems) throws ExecutionException, InterruptedException {
         StompSessionHandler sessionHandler = new MyStompSessionHandler();
