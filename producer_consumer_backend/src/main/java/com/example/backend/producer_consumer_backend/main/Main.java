@@ -44,15 +44,22 @@ public class Main {
         t1.start();
         t2.start();
     }
-    public static void start(List<DefaultMachine> machines, List<Queue> queues) throws ExecutionException, InterruptedException {
+    public static void start(List<DefaultMachine> machines, List<Queue> queues, int numberOfItems) throws ExecutionException, InterruptedException {
         StompSessionHandler sessionHandler = new MyStompSessionHandler();
         client.setMessageConverter(new JacksonJsonMessageConverter());
         Main.session = client.connectAsync("ws://localhost:8080/server", sessionHandler).get();
         Main.dto.setMachines(machines);
         Main.dto.setQueues(queues);
+        Main.dto.setNumberOfItems(numberOfItems);
         for(DefaultMachine machine: machines) {
             Thread t = new Thread(machine);
             t.start();
+        }
+        int n = Main.dto.getNumberOfItems();
+        while(n != 0){
+            queues.get(0).enqueue(new Product(n));
+            Thread.sleep((int)(Math.random() * 2000));
+            n--;
         }
     }
 

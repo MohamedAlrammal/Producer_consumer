@@ -24,7 +24,7 @@ public class DefaultMachine implements MachineInterface, Runnable{
     }
 
     public synchronized void produce(){
-        Queue q = productionQueues.get(0);
+        Queue q = productionQueues.get((int)(Math.random() * productionQueues.size()));
         System.out.println("machine " + id  + " is producing to queue " + q.id);
         q.enqueue(product);
         product = null;

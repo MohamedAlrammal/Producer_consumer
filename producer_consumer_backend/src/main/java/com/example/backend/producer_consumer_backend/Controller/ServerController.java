@@ -14,7 +14,7 @@ public class ServerController {
 
     @MessageMapping("/start")
     public void start(Dto dto) throws Exception{
-        Main.start(dto.getMachines(), dto.getQueues());
+        Main.start(dto.getMachines(), dto.getQueues(), dto.getNumberOfItems());
     }
 
     @MessageMapping("update")

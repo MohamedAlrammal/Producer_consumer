@@ -10,4 +10,5 @@ import java.util.List;
 public class Dto {
     private List<DefaultMachine> machines;
     private List<Queue> queues;
+    private int numberOfItems;
 }
