@@ -1,0 +1,25 @@
+<div class="control-panel">
+    <button (click)="startSimulation()" [disabled]="isRunning">
+        ▶ Start
+    </button>
+
+    <button (click)="stopSimulation()" [disabled]="!isRunning">
+        ⏸ Stop
+    </button>
+
+    <button (click)="resetSimulation()">
+        🔄 Reset
+    </button>
+
+    <button (click)="replaySimulation()">
+        ⏮ Replay
+    </button>
+    <div class="control-panel">
+
+        <button (click)="addMachine()">➕ Add Machine</button>
+
+        <button (click)="addQueue()">➕ Add Queue</button>
+
+    </div>
+
+</div>
