@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Main {
 
-    private static Dto dto;
+    private static Dto dto = new Dto();
     private static WebSocketStompClient client = new WebSocketStompClient(new StandardWebSocketClient());
     private static StompSession session;
     public static void main(String [] args) throws InterruptedException {

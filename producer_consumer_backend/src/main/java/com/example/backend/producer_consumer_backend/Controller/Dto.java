@@ -11,4 +11,8 @@ public class Dto {
     private List<DefaultMachine> machines;
     private List<Queue> queues;
     private int numberOfItems;
+
+    public static class Memento{
+        
+    }
 }

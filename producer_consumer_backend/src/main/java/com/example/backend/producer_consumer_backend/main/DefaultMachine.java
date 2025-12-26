@@ -1,16 +1,23 @@
 package com.example.backend.producer_consumer_backend.main;
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class DefaultMachine implements MachineInterface, Runnable{
-    private final List<Queue> readyQueues = new ArrayList<>();
+
+    private List<Queue> readyQueues = new ArrayList<>();
     private List<Queue> productionQueues = new ArrayList<>();
     public int id;
-    @Getter
     private Product product;
+
+    public DefaultMachine(){
+
+    }
 
     public DefaultMachine(List<Queue> productionQueues){
         this.productionQueues = productionQueues;
